@@ -17,7 +17,7 @@ class PetFriends:
             'email': email,
             'password': password
         }
-        res = requests.get(self.base_url+"api/key", headers=headers)
+        res = requests.get(self.base_url + "api/key", headers=headers)
         status = res.status_code
         result = ""
         try:
@@ -32,10 +32,10 @@ class PetFriends:
 
         data = MultipartEncoder(
             fields={
-            'name': name,
-            'animal_type': animal_type,
-            'age': age
-        })
+                'name': name,
+                'animal_type': animal_type,
+                'age': age
+            })
         headers = {'auth_key': auth_key['key'], 'Content-Type': data.content_type}
 
         res = requests.post(self.base_url + 'api/create_pet_simple', headers=headers, data=data)
@@ -51,7 +51,7 @@ class PetFriends:
     def get_list_of_pets(self, auth_key: json, filter) -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON
         со списком найденных питомцев, совпадающих с фильтром. На данный момент может иметь либо пустое
-        значение (получить список всех питомцев), либо 'my_pets' (получить список собственых питомцев)"""
+        значение (получить список всех питомцев), либо 'my_pets' (получить список собственных питомцев)"""
 
         headers = {'auth_key': auth_key['key']}
         filter = {'filter': filter}
@@ -134,7 +134,7 @@ class PetFriends:
         print(result)
         return status, result
 
-    def detele_pet(self, auth_key: json, pet_id: str) -> json:
+    def delete_pet(self, auth_key: json, pet_id: str) -> json:
         """Метод отправляет на сервер запрос на удаление питомца по указанному ID и возвращает статус
         запроса и результат в формате JSON с текстовым уведомлением об успешном удалении.
         На текущий момент есть баг: в result приходит пустая строка, но при этом status = 200"""
